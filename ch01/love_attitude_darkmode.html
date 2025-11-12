@@ -1,0 +1,174 @@
+
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <title>愛情態度量表</title>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <style>
+    body {
+      background-color: #121212;
+      color: #ffffff;
+      font-family: sans-serif;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+    }
+    .question {
+      margin-bottom: 10px;
+    }
+    .result-table {
+      margin-top: 20px;
+      border-collapse: collapse;
+      width: 100%;
+    }
+    .result-table th, .result-table td {
+      border: 1px solid #ffffff;
+      padding: 8px;
+      text-align: center;
+    }
+    .result-table th {
+      background-color: #333333;
+    }
+    button {
+      padding: 10px 20px;
+      background-color: #333333;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #555555;
+    }
+  </style>
+</head>
+<body>
+  <h1>愛情態度量表</h1>
+  <form id="loveForm">
+<div class="question">第 1 題：<label><input type="radio" name="q1" value="1" required> 1</label><label><input type="radio" name="q1" value="2" required> 2</label><label><input type="radio" name="q1" value="3" required> 3</label><label><input type="radio" name="q1" value="4" required> 4</label><label><input type="radio" name="q1" value="5" required> 5</label></div>
+<div class="question">第 2 題：<label><input type="radio" name="q2" value="1" required> 1</label><label><input type="radio" name="q2" value="2" required> 2</label><label><input type="radio" name="q2" value="3" required> 3</label><label><input type="radio" name="q2" value="4" required> 4</label><label><input type="radio" name="q2" value="5" required> 5</label></div>
+<div class="question">第 3 題：<label><input type="radio" name="q3" value="1" required> 1</label><label><input type="radio" name="q3" value="2" required> 2</label><label><input type="radio" name="q3" value="3" required> 3</label><label><input type="radio" name="q3" value="4" required> 4</label><label><input type="radio" name="q3" value="5" required> 5</label></div>
+<div class="question">第 4 題：<label><input type="radio" name="q4" value="1" required> 1</label><label><input type="radio" name="q4" value="2" required> 2</label><label><input type="radio" name="q4" value="3" required> 3</label><label><input type="radio" name="q4" value="4" required> 4</label><label><input type="radio" name="q4" value="5" required> 5</label></div>
+<div class="question">第 5 題：<label><input type="radio" name="q5" value="1" required> 1</label><label><input type="radio" name="q5" value="2" required> 2</label><label><input type="radio" name="q5" value="3" required> 3</label><label><input type="radio" name="q5" value="4" required> 4</label><label><input type="radio" name="q5" value="5" required> 5</label></div>
+<div class="question">第 6 題：<label><input type="radio" name="q6" value="1" required> 1</label><label><input type="radio" name="q6" value="2" required> 2</label><label><input type="radio" name="q6" value="3" required> 3</label><label><input type="radio" name="q6" value="4" required> 4</label><label><input type="radio" name="q6" value="5" required> 5</label></div>
+<div class="question">第 7 題：<label><input type="radio" name="q7" value="1" required> 1</label><label><input type="radio" name="q7" value="2" required> 2</label><label><input type="radio" name="q7" value="3" required> 3</label><label><input type="radio" name="q7" value="4" required> 4</label><label><input type="radio" name="q7" value="5" required> 5</label></div>
+<div class="question">第 8 題：<label><input type="radio" name="q8" value="1" required> 1</label><label><input type="radio" name="q8" value="2" required> 2</label><label><input type="radio" name="q8" value="3" required> 3</label><label><input type="radio" name="q8" value="4" required> 4</label><label><input type="radio" name="q8" value="5" required> 5</label></div>
+<div class="question">第 9 題：<label><input type="radio" name="q9" value="1" required> 1</label><label><input type="radio" name="q9" value="2" required> 2</label><label><input type="radio" name="q9" value="3" required> 3</label><label><input type="radio" name="q9" value="4" required> 4</label><label><input type="radio" name="q9" value="5" required> 5</label></div>
+<div class="question">第 10 題：<label><input type="radio" name="q10" value="1" required> 1</label><label><input type="radio" name="q10" value="2" required> 2</label><label><input type="radio" name="q10" value="3" required> 3</label><label><input type="radio" name="q10" value="4" required> 4</label><label><input type="radio" name="q10" value="5" required> 5</label></div>
+<div class="question">第 11 題：<label><input type="radio" name="q11" value="1" required> 1</label><label><input type="radio" name="q11" value="2" required> 2</label><label><input type="radio" name="q11" value="3" required> 3</label><label><input type="radio" name="q11" value="4" required> 4</label><label><input type="radio" name="q11" value="5" required> 5</label></div>
+<div class="question">第 12 題：<label><input type="radio" name="q12" value="1" required> 1</label><label><input type="radio" name="q12" value="2" required> 2</label><label><input type="radio" name="q12" value="3" required> 3</label><label><input type="radio" name="q12" value="4" required> 4</label><label><input type="radio" name="q12" value="5" required> 5</label></div>
+<div class="question">第 13 題：<label><input type="radio" name="q13" value="1" required> 1</label><label><input type="radio" name="q13" value="2" required> 2</label><label><input type="radio" name="q13" value="3" required> 3</label><label><input type="radio" name="q13" value="4" required> 4</label><label><input type="radio" name="q13" value="5" required> 5</label></div>
+<div class="question">第 14 題：<label><input type="radio" name="q14" value="1" required> 1</label><label><input type="radio" name="q14" value="2" required> 2</label><label><input type="radio" name="q14" value="3" required> 3</label><label><input type="radio" name="q14" value="4" required> 4</label><label><input type="radio" name="q14" value="5" required> 5</label></div>
+<div class="question">第 15 題：<label><input type="radio" name="q15" value="1" required> 1</label><label><input type="radio" name="q15" value="2" required> 2</label><label><input type="radio" name="q15" value="3" required> 3</label><label><input type="radio" name="q15" value="4" required> 4</label><label><input type="radio" name="q15" value="5" required> 5</label></div>
+<div class="question">第 16 題：<label><input type="radio" name="q16" value="1" required> 1</label><label><input type="radio" name="q16" value="2" required> 2</label><label><input type="radio" name="q16" value="3" required> 3</label><label><input type="radio" name="q16" value="4" required> 4</label><label><input type="radio" name="q16" value="5" required> 5</label></div>
+<div class="question">第 17 題：<label><input type="radio" name="q17" value="1" required> 1</label><label><input type="radio" name="q17" value="2" required> 2</label><label><input type="radio" name="q17" value="3" required> 3</label><label><input type="radio" name="q17" value="4" required> 4</label><label><input type="radio" name="q17" value="5" required> 5</label></div>
+<div class="question">第 18 題：<label><input type="radio" name="q18" value="1" required> 1</label><label><input type="radio" name="q18" value="2" required> 2</label><label><input type="radio" name="q18" value="3" required> 3</label><label><input type="radio" name="q18" value="4" required> 4</label><label><input type="radio" name="q18" value="5" required> 5</label></div>
+<div class="question">第 19 題：<label><input type="radio" name="q19" value="1" required> 1</label><label><input type="radio" name="q19" value="2" required> 2</label><label><input type="radio" name="q19" value="3" required> 3</label><label><input type="radio" name="q19" value="4" required> 4</label><label><input type="radio" name="q19" value="5" required> 5</label></div>
+<div class="question">第 20 題：<label><input type="radio" name="q20" value="1" required> 1</label><label><input type="radio" name="q20" value="2" required> 2</label><label><input type="radio" name="q20" value="3" required> 3</label><label><input type="radio" name="q20" value="4" required> 4</label><label><input type="radio" name="q20" value="5" required> 5</label></div>
+<div class="question">第 21 題：<label><input type="radio" name="q21" value="1" required> 1</label><label><input type="radio" name="q21" value="2" required> 2</label><label><input type="radio" name="q21" value="3" required> 3</label><label><input type="radio" name="q21" value="4" required> 4</label><label><input type="radio" name="q21" value="5" required> 5</label></div>
+<div class="question">第 22 題：<label><input type="radio" name="q22" value="1" required> 1</label><label><input type="radio" name="q22" value="2" required> 2</label><label><input type="radio" name="q22" value="3" required> 3</label><label><input type="radio" name="q22" value="4" required> 4</label><label><input type="radio" name="q22" value="5" required> 5</label></div>
+<div class="question">第 23 題：<label><input type="radio" name="q23" value="1" required> 1</label><label><input type="radio" name="q23" value="2" required> 2</label><label><input type="radio" name="q23" value="3" required> 3</label><label><input type="radio" name="q23" value="4" required> 4</label><label><input type="radio" name="q23" value="5" required> 5</label></div>
+<div class="question">第 24 題：<label><input type="radio" name="q24" value="1" required> 1</label><label><input type="radio" name="q24" value="2" required> 2</label><label><input type="radio" name="q24" value="3" required> 3</label><label><input type="radio" name="q24" value="4" required> 4</label><label><input type="radio" name="q24" value="5" required> 5</label></div>
+<div class="question">第 25 題：<label><input type="radio" name="q25" value="1" required> 1</label><label><input type="radio" name="q25" value="2" required> 2</label><label><input type="radio" name="q25" value="3" required> 3</label><label><input type="radio" name="q25" value="4" required> 4</label><label><input type="radio" name="q25" value="5" required> 5</label></div>
+<div class="question">第 26 題：<label><input type="radio" name="q26" value="1" required> 1</label><label><input type="radio" name="q26" value="2" required> 2</label><label><input type="radio" name="q26" value="3" required> 3</label><label><input type="radio" name="q26" value="4" required> 4</label><label><input type="radio" name="q26" value="5" required> 5</label></div>
+<div class="question">第 27 題：<label><input type="radio" name="q27" value="1" required> 1</label><label><input type="radio" name="q27" value="2" required> 2</label><label><input type="radio" name="q27" value="3" required> 3</label><label><input type="radio" name="q27" value="4" required> 4</label><label><input type="radio" name="q27" value="5" required> 5</label></div>
+<div class="question">第 28 題：<label><input type="radio" name="q28" value="1" required> 1</label><label><input type="radio" name="q28" value="2" required> 2</label><label><input type="radio" name="q28" value="3" required> 3</label><label><input type="radio" name="q28" value="4" required> 4</label><label><input type="radio" name="q28" value="5" required> 5</label></div>
+<div class="question">第 29 題：<label><input type="radio" name="q29" value="1" required> 1</label><label><input type="radio" name="q29" value="2" required> 2</label><label><input type="radio" name="q29" value="3" required> 3</label><label><input type="radio" name="q29" value="4" required> 4</label><label><input type="radio" name="q29" value="5" required> 5</label></div>
+<div class="question">第 30 題：<label><input type="radio" name="q30" value="1" required> 1</label><label><input type="radio" name="q30" value="2" required> 2</label><label><input type="radio" name="q30" value="3" required> 3</label><label><input type="radio" name="q30" value="4" required> 4</label><label><input type="radio" name="q30" value="5" required> 5</label></div>
+<div class="question">第 31 題：<label><input type="radio" name="q31" value="1" required> 1</label><label><input type="radio" name="q31" value="2" required> 2</label><label><input type="radio" name="q31" value="3" required> 3</label><label><input type="radio" name="q31" value="4" required> 4</label><label><input type="radio" name="q31" value="5" required> 5</label></div>
+<div class="question">第 32 題：<label><input type="radio" name="q32" value="1" required> 1</label><label><input type="radio" name="q32" value="2" required> 2</label><label><input type="radio" name="q32" value="3" required> 3</label><label><input type="radio" name="q32" value="4" required> 4</label><label><input type="radio" name="q32" value="5" required> 5</label></div>
+<div class="question">第 33 題：<label><input type="radio" name="q33" value="1" required> 1</label><label><input type="radio" name="q33" value="2" required> 2</label><label><input type="radio" name="q33" value="3" required> 3</label><label><input type="radio" name="q33" value="4" required> 4</label><label><input type="radio" name="q33" value="5" required> 5</label></div>
+<div class="question">第 34 題：<label><input type="radio" name="q34" value="1" required> 1</label><label><input type="radio" name="q34" value="2" required> 2</label><label><input type="radio" name="q34" value="3" required> 3</label><label><input type="radio" name="q34" value="4" required> 4</label><label><input type="radio" name="q34" value="5" required> 5</label></div>
+<div class="question">第 35 題：<label><input type="radio" name="q35" value="1" required> 1</label><label><input type="radio" name="q35" value="2" required> 2</label><label><input type="radio" name="q35" value="3" required> 3</label><label><input type="radio" name="q35" value="4" required> 4</label><label><input type="radio" name="q35" value="5" required> 5</label></div>
+<div class="question">第 36 題：<label><input type="radio" name="q36" value="1" required> 1</label><label><input type="radio" name="q36" value="2" required> 2</label><label><input type="radio" name="q36" value="3" required> 3</label><label><input type="radio" name="q36" value="4" required> 4</label><label><input type="radio" name="q36" value="5" required> 5</label></div>
+
+    <button type="submit">提交並計算分數</button>
+  </form>
+
+  <div id="results"></div>
+  <div id="chart" style="margin-top:30px;"></div>
+
+  <script>
+    document.getElementById("loveForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+      const formData = new FormData(event.target);
+      const scores = {};
+      scores["熱情愛"] = 0;
+      scores["友誼愛"] = 0;
+      scores["現實愛"] = 0;
+      scores["奉獻愛"] = 0;
+      scores["瘋狂愛"] = 0;
+      scores["遊戲愛"] = 0;
+
+      scores["熱情愛"] += parseInt(formData.get("q10"));
+      scores["熱情愛"] += parseInt(formData.get("q13"));
+      scores["熱情愛"] += parseInt(formData.get("q20"));
+      scores["熱情愛"] += parseInt(formData.get("q24"));
+      scores["熱情愛"] += parseInt(formData.get("q29"));
+      scores["熱情愛"] += parseInt(formData.get("q32"));
+      scores["友誼愛"] += parseInt(formData.get("q1"));
+      scores["友誼愛"] += parseInt(formData.get("q11"));
+      scores["友誼愛"] += parseInt(formData.get("q17"));
+      scores["友誼愛"] += parseInt(formData.get("q19"));
+      scores["友誼愛"] += parseInt(formData.get("q25"));
+      scores["友誼愛"] += parseInt(formData.get("q36"));
+      scores["現實愛"] += parseInt(formData.get("q2"));
+      scores["現實愛"] += parseInt(formData.get("q6"));
+      scores["現實愛"] += parseInt(formData.get("q16"));
+      scores["現實愛"] += parseInt(formData.get("q22"));
+      scores["現實愛"] += parseInt(formData.get("q31"));
+      scores["現實愛"] += parseInt(formData.get("q34"));
+      scores["奉獻愛"] += parseInt(formData.get("q3"));
+      scores["奉獻愛"] += parseInt(formData.get("q7"));
+      scores["奉獻愛"] += parseInt(formData.get("q23"));
+      scores["奉獻愛"] += parseInt(formData.get("q27"));
+      scores["奉獻愛"] += parseInt(formData.get("q28"));
+      scores["奉獻愛"] += parseInt(formData.get("q35"));
+      scores["瘋狂愛"] += parseInt(formData.get("q4"));
+      scores["瘋狂愛"] += parseInt(formData.get("q8"));
+      scores["瘋狂愛"] += parseInt(formData.get("q14"));
+      scores["瘋狂愛"] += parseInt(formData.get("q18"));
+      scores["瘋狂愛"] += parseInt(formData.get("q21"));
+      scores["瘋狂愛"] += parseInt(formData.get("q30"));
+      scores["遊戲愛"] += parseInt(formData.get("q5"));
+      scores["遊戲愛"] += parseInt(formData.get("q9"));
+      scores["遊戲愛"] += parseInt(formData.get("q12"));
+      scores["遊戲愛"] += parseInt(formData.get("q15"));
+      scores["遊戲愛"] += parseInt(formData.get("q26"));
+      scores["遊戲愛"] += parseInt(formData.get("q33"));
+
+      let resultHTML = "<h2>結果</h2><table class='result-table'><tr><th>愛情態度</th><th>分數</th></tr>";
+      const labels = [];
+      const values = [];
+      for (const [key, value] of Object.entries(scores)) {
+        resultHTML += `<tr><td>${key}</td><td>${value}</td></tr>`;
+        labels.push(key);
+        values.push(value);
+      }
+      resultHTML += "</table>";
+      document.getElementById("results").innerHTML = resultHTML;
+
+      Plotly.newPlot("chart", [{
+        x: labels,
+        y: values,
+        type: "bar",
+        marker: {color: "#ff4081"}
+      }], {
+        title: "愛情態度分數圖表",
+        paper_bgcolor: "#121212",
+        plot_bgcolor: "#121212",
+        font: {color: "#ffffff", family: "wqy-zenhei"}
+      });
+
+      // 儲存 JSON 結果
+      const resultData = {timestamp: new Date().toISOString(), scores: scores};
+      const blob = new Blob([JSON.stringify(resultData, null, 2)], {type: "application/json"});
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = "love_attitude_result.json";
+      link.click();
+    });
+  </script>
+</body>
+</html>
