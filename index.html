@@ -1,0 +1,799 @@
+
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <title>愛情態度量表</title>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <style>
+    body {
+      background-color: #121212;
+      color: #ffffff;
+      font-family: sans-serif;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+    }
+    .question {
+      margin-bottom: 10px;
+      display: none;
+    }
+    .question.active {
+      display: block;
+    }
+    .page {
+      display: none;
+      max-width: 760px;
+      margin: 0 auto;
+    }
+    .page.active {
+      display: block;
+    }
+    .question p {
+      margin-bottom: 8px;
+      line-height: 1.6;
+    }
+    .options label {
+      margin-right: 12px;
+      display: inline-block;
+    }
+    .nav-controls {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    .nav-controls button {
+      padding: 8px 16px;
+    }
+    .nav-controls button:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+    #progress {
+      font-size: 14px;
+      margin-left: auto;
+    }
+    .result-table {
+      margin-top: 20px;
+      border-collapse: collapse;
+      width: 100%;
+    }
+    .result-table th, .result-table td {
+      border: 1px solid #ffffff;
+      padding: 8px;
+      text-align: center;
+    }
+    .result-table th {
+      background-color: #333333;
+    }
+    button {
+      padding: 10px 20px;
+      background-color: #333333;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #555555;
+    }
+    #captionSection {
+      margin-top: 30px;
+      display: grid;
+      gap: 16px;
+    }
+    .caption-card {
+      border: 1px solid #333333;
+      border-radius: 8px;
+      padding: 16px;
+      background-color: #1e1e1e;
+    }
+    .caption-card h3 {
+      margin: 0 0 8px;
+      font-size: 18px;
+    }
+    .caption-card p {
+      margin: 4px 0;
+      line-height: 1.6;
+    }
+    .caption-card ul {
+      margin: 8px 0 0;
+      padding-left: 20px;
+    }
+    .selected-answer {
+      margin-top: 6px;
+      color: #ff80ab;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <h1>愛情態度量表</h1>
+  <div id="introPage" class="page active">
+    <p>這個量表主要是想瞭解你對愛情所持的態度。題目中的「他/她」，是指目前與你密切交往的男/女朋友。（請以您目前的戀人為回答依據；若目前沒有戀人，請就上任對象作答；若沒有談過戀愛，也請您想像一下再作答）。請針對每一題項所敘述的情形，圈選出您認為最能反映您實際狀況的數字。</p>
+    <button type="button" id="startButton">開始測驗</button>
+  </div>
+
+  <div id="quizPage" class="page">
+    <form id="loveForm">
+    <div class="nav-controls">
+      <button type="button" id="prevButton">上一題</button>
+      <button type="button" id="returnButton" hidden>返回結果</button>
+      <span id="progress" aria-live="polite"></span>
+    </div>
+    <div class="question">
+      <p>第 1 題：我很難明確地說我和他/她是何時從友情變成愛情的。</p>
+      <div class="options">
+        <label><input type="radio" name="q1" value="1" required> 1</label>
+        <label><input type="radio" name="q1" value="2"> 2</label>
+        <label><input type="radio" name="q1" value="3"> 3</label>
+        <label><input type="radio" name="q1" value="4"> 4</label>
+        <label><input type="radio" name="q1" value="5"> 5</label>
+      </div>
+    </div>
+    <div class="question">
+      <p>第 2 題：對他/她做承諾之前，我會考慮他/她將來可能變成的樣子。</p>
+      <div class="options">
+        <label><input type="radio" name="q2" value="1" required> 1</label>
+        <label><input type="radio" name="q2" value="2"> 2</label>
+        <label><input type="radio" name="q2" value="3"> 3</label>
+        <label><input type="radio" name="q2" value="4"> 4</label>
+        <label><input type="radio" name="q2" value="5"> 5</label>
+      </div>
+    </div>
+    <div class="question">
+      <p>第 3 題：我總是試著幫他/她度過難關。</p>
+      <div class="options">
+        <label><input type="radio" name="q3" value="1" required> 1</label>
+        <label><input type="radio" name="q3" value="2"> 2</label>
+        <label><input type="radio" name="q3" value="3"> 3</label>
+        <label><input type="radio" name="q3" value="4"> 4</label>
+        <label><input type="radio" name="q3" value="5"> 5</label>
+      </div>
+    </div>
+    <div class="question">
+      <p>第 4 題：和他/她的關係不太對勁時，我的身體就會不舒服。</p>
+      <div class="options">
+        <label><input type="radio" name="q4" value="1" required> 1</label>
+        <label><input type="radio" name="q4" value="2"> 2</label>
+        <label><input type="radio" name="q4" value="3"> 3</label>
+        <label><input type="radio" name="q4" value="4"> 4</label>
+        <label><input type="radio" name="q4" value="5"> 5</label>
+      </div>
+    </div>
+    <div class="question">
+      <p>第 5 題：我不想給他/她明確的承諾。</p>
+      <div class="options">
+        <label><input type="radio" name="q5" value="1" required> 1</label>
+        <label><input type="radio" name="q5" value="2"> 2</label>
+        <label><input type="radio" name="q5" value="3"> 3</label>
+        <label><input type="radio" name="q5" value="4"> 4</label>
+        <label><input type="radio" name="q5" value="5"> 5</label>
+      </div>
+    </div>
+    <div class="question">
+      <p>第 6 題：在選擇他/她之前，我會先試著仔細規劃我的人生。</p>
+      <div class="options">
+        <label><input type="radio" name="q6" value="1" required> 1</label>
+        <label><input type="radio" name="q6" value="2"> 2</label>
+        <label><input type="radio" name="q6" value="3"> 3</label>
+        <label><input type="radio" name="q6" value="4"> 4</label>
+        <label><input type="radio" name="q6" value="5"> 5</label>
+      </div>
+    </div>
+    <div class="question">
+      <p>第 7 題：我寧願自己痛苦，也不願意讓他/她受苦。</p>
+      <div class="options">
+        <label><input type="radio" name="q7" value="1" required> 1</label>
+        <label><input type="radio" name="q7" value="2"> 2</label>
+        <label><input type="radio" name="q7" value="3"> 3</label>
+        <label><input type="radio" name="q7" value="4"> 4</label>
+        <label><input type="radio" name="q7" value="5"> 5</label>
+      </div>
+    </div>
+    <div class="question">
+      <p>第 8 題：失戀時，我會十分沮喪，甚至會有自殺的念頭。</p>
+      <div class="options">
+        <label><input type="radio" name="q8" value="1" required> 1</label>
+        <label><input type="radio" name="q8" value="2"> 2</label>
+        <label><input type="radio" name="q8" value="3"> 3</label>
+        <label><input type="radio" name="q8" value="4"> 4</label>
+        <label><input type="radio" name="q8" value="5"> 5</label>
+      </div>
+    </div>
+    <div class="question">
+      <p>第 9 題：就算他/她對我不瞭解，這件事也不會傷害他/她。</p>
+      <div class="options">
+        <label><input type="radio" name="q9" value="1" required> 1</label>
+        <label><input type="radio" name="q9" value="2"> 2</label>
+        <label><input type="radio" name="q9" value="3"> 3</label>
+        <label><input type="radio" name="q9" value="4"> 4</label>
+        <label><input type="radio" name="q9" value="5"> 5</label>
+      </div>
+    </div>
+    <div class="question">
+      <p>第 10 題：我和他/她很來電。</p>
+      <div class="options">
+        <label><input type="radio" name="q10" value="1" required> 1</label>
+        <label><input type="radio" name="q10" value="2"> 2</label>
+        <label><input type="radio" name="q10" value="3"> 3</label>
+        <label><input type="radio" name="q10" value="4"> 4</label>
+        <label><input type="radio" name="q10" value="5"> 5</label>
+      </div>
+    </div>
+    <div class="question">
+      <p>第 11 題：我需要先經過一陣子的關心和照顧，才有可能產生愛情。</p>
+      <div class="options">
+        <label><input type="radio" name="q11" value="1" required> 1</label>
+        <label><input type="radio" name="q11" value="2"> 2</label>
+        <label><input type="radio" name="q11" value="3"> 3</label>
+        <label><input type="radio" name="q11" value="4"> 4</label>
+        <label><input type="radio" name="q11" value="5"> 5</label>
+      </div>
+    </div>
+    <div class="question">
+      <p>第 12 題：有時候，我得防範他/她發現我還有其他情人。</p>
+      <div class="options">
+        <label><input type="radio" name="q12" value="1" required> 1</label>
+        <label><input type="radio" name="q12" value="2"> 2</label>
+        <label><input type="radio" name="q12" value="3"> 3</label>
+        <label><input type="radio" name="q12" value="4"> 4</label>
+        <label><input type="radio" name="q12" value="5"> 5</label>
+      </div>
+    </div>
+    <div class="question">
+      <p>第 13 題：我和他/她的親密行為是很熱情且很令我滿意。</p>
+      <div class="options">
+        <label><input type="radio" name="q13" value="1" required> 1</label>
+        <label><input type="radio" name="q13" value="2"> 2</label>
+        <label><input type="radio" name="q13" value="3"> 3</label>
+        <label><input type="radio" name="q13" value="4"> 4</label>
+        <label><input type="radio" name="q13" value="5"> 5</label>
+      </div>
+    </div>
+    <div class="question">
+      <p>第 14 題：我有時會因為想到自己正在談戀愛而興奮地睡不著覺。</p>
+      <div class="options">
+        <label><input type="radio" name="q14" value="1" required> 1</label>
+        <label><input type="radio" name="q14" value="2"> 2</label>
+        <label><input type="radio" name="q14" value="3"> 3</label>
+        <label><input type="radio" name="q14" value="4"> 4</label>
+        <label><input type="radio" name="q14" value="5"> 5</label>
+      </div>
+    </div>
+    <div class="question">
+      <p>第 15 題：我可以很容易、很快地從過往的戀情中走出來。</p>
+      <div class="options">
+        <label><input type="radio" name="q15" value="1" required> 1</label>
+        <label><input type="radio" name="q15" value="2"> 2</label>
+        <label><input type="radio" name="q15" value="3"> 3</label>
+        <label><input type="radio" name="q15" value="4"> 4</label>
+        <label><input type="radio" name="q15" value="5"> 5</label>
+      </div>
+    </div>
+    <div class="question">
+      <p>第 16 題：他/她如何看待我的家人是我選擇他/她的主要考量。</p>
+      <div class="options">
+        <label><input type="radio" name="q16" value="1" required> 1</label>
+        <label><input type="radio" name="q16" value="2"> 2</label>
+        <label><input type="radio" name="q16" value="3"> 3</label>
+        <label><input type="radio" name="q16" value="4"> 4</label>
+        <label><input type="radio" name="q16" value="5"> 5</label>
+      </div>
+    </div>
+    <div class="question">
+      <p>第 17 題：我希望和曾經相愛的他/她是永遠的朋友。</p>
+      <div class="options">
+        <label><input type="radio" name="q17" value="1" required> 1</label>
+        <label><input type="radio" name="q17" value="2"> 2</label>
+        <label><input type="radio" name="q17" value="3"> 3</label>
+        <label><input type="radio" name="q17" value="4"> 4</label>
+        <label><input type="radio" name="q17" value="5"> 5</label>
+      </div>
+    </div>
+    <div class="question">
+      <p>第 18 題：當他/她不注意我時，我會全身不舒服。</p>
+      <div class="options">
+        <label><input type="radio" name="q18" value="1" required> 1</label>
+        <label><input type="radio" name="q18" value="2"> 2</label>
+        <label><input type="radio" name="q18" value="3"> 3</label>
+        <label><input type="radio" name="q18" value="4"> 4</label>
+        <label><input type="radio" name="q18" value="5"> 5</label>
+      </div>
+    </div>
+    <div class="question">
+      <p>第 19 題：我和他/她的愛情關係是最理想因為是由長久的友誼發展而成的。</p>
+      <div class="options">
+        <label><input type="radio" name="q19" value="1" required> 1</label>
+        <label><input type="radio" name="q19" value="2"> 2</label>
+        <label><input type="radio" name="q19" value="3"> 3</label>
+        <label><input type="radio" name="q19" value="4"> 4</label>
+        <label><input type="radio" name="q19" value="5"> 5</label>
+      </div>
+    </div>
+    <div class="question">
+      <p>第 20 題：我覺得我和他/她是天生一對。</p>
+      <div class="options">
+        <label><input type="radio" name="q20" value="1" required> 1</label>
+        <label><input type="radio" name="q20" value="2"> 2</label>
+        <label><input type="radio" name="q20" value="3"> 3</label>
+        <label><input type="radio" name="q20" value="4"> 4</label>
+        <label><input type="radio" name="q20" value="5"> 5</label>
+      </div>
+    </div>
+    <div class="question">
+      <p>第 21 題：自從和他/她談戀愛後，我很難專心在其他任何事情上。</p>
+      <div class="options">
+        <label><input type="radio" name="q21" value="1" required> 1</label>
+        <label><input type="radio" name="q21" value="2"> 2</label>
+        <label><input type="radio" name="q21" value="3"> 3</label>
+        <label><input type="radio" name="q21" value="4"> 4</label>
+        <label><input type="radio" name="q21" value="5"> 5</label>
+      </div>
+    </div>
+    <div class="question">
+      <p>第 22 題：他/她將來會不會是一個好父親/母親是我選擇他/她的一個重要因素。</p>
+      <div class="options">
+        <label><input type="radio" name="q22" value="1" required> 1</label>
+        <label><input type="radio" name="q22" value="2"> 2</label>
+        <label><input type="radio" name="q22" value="3"> 3</label>
+        <label><input type="radio" name="q22" value="4"> 4</label>
+        <label><input type="radio" name="q22" value="5"> 5</label>
+      </div>
+    </div>
+    <div class="question">
+      <p>第 23 題：除非我先讓他/她快樂，否則我不會感到快樂。</p>
+      <div class="options">
+        <label><input type="radio" name="q23" value="1" required> 1</label>
+        <label><input type="radio" name="q23" value="2"> 2</label>
+        <label><input type="radio" name="q23" value="3"> 3</label>
+        <label><input type="radio" name="q23" value="4"> 4</label>
+        <label><input type="radio" name="q23" value="5"> 5</label>
+      </div>
+    </div>
+    <div class="question">
+      <p>第 24 題：我和他/她的感情、親密行為進展得很快。</p>
+      <div class="options">
+        <label><input type="radio" name="q24" value="1" required> 1</label>
+        <label><input type="radio" name="q24" value="2"> 2</label>
+        <label><input type="radio" name="q24" value="3"> 3</label>
+        <label><input type="radio" name="q24" value="4"> 4</label>
+        <label><input type="radio" name="q24" value="5"> 5</label>
+      </div>
+    </div>
+    <div class="question">
+      <p>第 25 題：我和他/她的友情隨著時間逐漸轉變為愛情。</p>
+      <div class="options">
+        <label><input type="radio" name="q25" value="1" required> 1</label>
+        <label><input type="radio" name="q25" value="2"> 2</label>
+        <label><input type="radio" name="q25" value="3"> 3</label>
+        <label><input type="radio" name="q25" value="4"> 4</label>
+        <label><input type="radio" name="q25" value="5"> 5</label>
+      </div>
+    </div>
+    <div class="question">
+      <p>第 26 題：當他/她太依賴我時，我會想和他/她保持一些距離。</p>
+      <div class="options">
+        <label><input type="radio" name="q26" value="1" required> 1</label>
+        <label><input type="radio" name="q26" value="2"> 2</label>
+        <label><input type="radio" name="q26" value="3"> 3</label>
+        <label><input type="radio" name="q26" value="4"> 4</label>
+        <label><input type="radio" name="q26" value="5"> 5</label>
+      </div>
+    </div>
+    <div class="question">
+      <p>第 27 題：我通常願意犧牲自己的願望，達成他/她的願望。</p>
+      <div class="options">
+        <label><input type="radio" name="q27" value="1" required> 1</label>
+        <label><input type="radio" name="q27" value="2"> 2</label>
+        <label><input type="radio" name="q27" value="3"> 3</label>
+        <label><input type="radio" name="q27" value="4"> 4</label>
+        <label><input type="radio" name="q27" value="5"> 5</label>
+      </div>
+    </div>
+    <div class="question">
+      <p>第 28 題：他/她可以任意使用我的東西。</p>
+      <div class="options">
+        <label><input type="radio" name="q28" value="1" required> 1</label>
+        <label><input type="radio" name="q28" value="2"> 2</label>
+        <label><input type="radio" name="q28" value="3"> 3</label>
+        <label><input type="radio" name="q28" value="4"> 4</label>
+        <label><input type="radio" name="q28" value="5"> 5</label>
+      </div>
+    </div>
+    <div class="question">
+      <p>第 29 題：我和他/她非常了解彼此。</p>
+      <div class="options">
+        <label><input type="radio" name="q29" value="1" required> 1</label>
+        <label><input type="radio" name="q29" value="2"> 2</label>
+        <label><input type="radio" name="q29" value="3"> 3</label>
+        <label><input type="radio" name="q29" value="4"> 4</label>
+        <label><input type="radio" name="q29" value="5"> 5</label>
+      </div>
+    </div>
+    <div class="question">
+      <p>第 30 題：當我懷疑他/她和其他人在一起時，我就無法放鬆。</p>
+      <div class="options">
+        <label><input type="radio" name="q30" value="1" required> 1</label>
+        <label><input type="radio" name="q30" value="2"> 2</label>
+        <label><input type="radio" name="q30" value="3"> 3</label>
+        <label><input type="radio" name="q30" value="4"> 4</label>
+        <label><input type="radio" name="q30" value="5"> 5</label>
+      </div>
+    </div>
+    <div class="question">
+      <p>第 31 題：他/她如何看待我的職業會是我選擇他/她的一個考量。</p>
+      <div class="options">
+        <label><input type="radio" name="q31" value="1" required> 1</label>
+        <label><input type="radio" name="q31" value="2"> 2</label>
+        <label><input type="radio" name="q31" value="3"> 3</label>
+        <label><input type="radio" name="q31" value="4"> 4</label>
+        <label><input type="radio" name="q31" value="5"> 5</label>
+      </div>
+    </div>
+    <div class="question">
+      <p>第 32 題：他/她的外貌符合我的理想標準。</p>
+      <div class="options">
+        <label><input type="radio" name="q32" value="1" required> 1</label>
+        <label><input type="radio" name="q32" value="2"> 2</label>
+        <label><input type="radio" name="q32" value="3"> 3</label>
+        <label><input type="radio" name="q32" value="4"> 4</label>
+        <label><input type="radio" name="q32" value="5"> 5</label>
+      </div>
+    </div>
+    <div class="question">
+      <p>第 33 題：我享受和他/她及一些不同的情人玩愛情遊戲。</p>
+      <div class="options">
+        <label><input type="radio" name="q33" value="1" required> 1</label>
+        <label><input type="radio" name="q33" value="2"> 2</label>
+        <label><input type="radio" name="q33" value="3"> 3</label>
+        <label><input type="radio" name="q33" value="4"> 4</label>
+        <label><input type="radio" name="q33" value="5"> 5</label>
+      </div>
+    </div>
+    <div class="question">
+      <p>第 34 題：在和他/她深入交往之前，我會試著了解他/她是否有良好的遺傳基因。</p>
+      <div class="options">
+        <label><input type="radio" name="q34" value="1" required> 1</label>
+        <label><input type="radio" name="q34" value="2"> 2</label>
+        <label><input type="radio" name="q34" value="3"> 3</label>
+        <label><input type="radio" name="q34" value="4"> 4</label>
+        <label><input type="radio" name="q34" value="5"> 5</label>
+      </div>
+    </div>
+    <div class="question">
+      <p>第 35 題：為了他/她，我願意忍受任何事情。</p>
+      <div class="options">
+        <label><input type="radio" name="q35" value="1" required> 1</label>
+        <label><input type="radio" name="q35" value="2"> 2</label>
+        <label><input type="radio" name="q35" value="3"> 3</label>
+        <label><input type="radio" name="q35" value="4"> 4</label>
+        <label><input type="radio" name="q35" value="5"> 5</label>
+      </div>
+    </div>
+    <div class="question">
+      <p>第 36 題：我和他/她的愛情關係是最令人滿意，因為是由良好友情發展成的。</p>
+      <div class="options">
+        <label><input type="radio" name="q36" value="1" required> 1</label>
+        <label><input type="radio" name="q36" value="2"> 2</label>
+        <label><input type="radio" name="q36" value="3"> 3</label>
+        <label><input type="radio" name="q36" value="4"> 4</label>
+        <label><input type="radio" name="q36" value="5"> 5</label>
+      </div>
+    </div>
+    <button type="submit" id="submitButton">提交並計算分數</button>
+    </form>
+  </div>
+
+  <div id="resultPage" class="page">
+    <div id="results"></div>
+    <button type="button" id="viewQuestionsButton">查看題目與作答</button>
+    <div id="chart" style="margin-top:30px;"></div>
+    <section id="captionSection"></section>
+  </div>
+
+  <script>
+    const introPage = document.getElementById("introPage");
+    const quizPage = document.getElementById("quizPage");
+    const resultPage = document.getElementById("resultPage");
+    const startButton = document.getElementById("startButton");
+    const form = document.getElementById("loveForm");
+    const questions = Array.from(form.querySelectorAll(".question"));
+    const prevButton = document.getElementById("prevButton");
+    const submitButton = document.getElementById("submitButton");
+    const progress = document.getElementById("progress");
+    const resultsContainer = document.getElementById("results");
+    const chartContainer = document.getElementById("chart");
+    const captionSection = document.getElementById("captionSection");
+    const viewQuestionsButton = document.getElementById("viewQuestionsButton");
+    const returnButton = document.getElementById("returnButton");
+
+    const pages = [introPage, quizPage, resultPage];
+    function setActivePage(target) {
+      pages.forEach((page) => {
+        page.classList.toggle("active", page === target);
+      });
+    }
+
+    const captionsData = [
+      {
+        attitude: "熱情愛",
+        items: [10, 13, 20, 24, 29, 32],
+        description: "遇到夢寐以求的對象並交往成功，可增進個體的自信，彼此間有濃烈的熱情、承諾和親密，也重視伴侶身體的吸引力。",
+        related: ["關係滿意度高", "處於戀愛熱戀者得分高", "男性得分較高"]
+      },
+      {
+        attitude: "友誼愛",
+        items: [1, 11, 17, 19, 25, 36],
+        description: "較注重伴侶的人格特質、兩人友誼、朋友關係的發展，與伴侶之間比較像親密的關係。",
+        related: ["關係滿意度高", "較有自信", "女性得分較高"]
+      },
+      {
+        attitude: "現實愛",
+        items: [2, 6, 16, 21, 31, 34],
+        description: "像具實務取向理性選擇符合標準的伴侶，通常重視伴侶的社經地位與學歷等理性條件。",
+        related: ["女性得分較高", "受社會文化所影響"]
+      },
+      {
+        attitude: "奉獻愛",
+        items: [3, 7, 23, 27, 28, 35],
+        description: "凡事都為對方著想，不求對方回報，只要對方幸福，屬於自我犧牲的愛情態度。",
+        related: ["關係滿意度高", "在東方國家較常見"]
+      },
+      {
+        attitude: "瘋狂愛",
+        items: [4, 8, 14, 18, 21, 30],
+        description: "極度缺乏安全感、佔有慾的強烈愛戀，即使對對方的愛被拒絕也會堅信，時常關係充滿緊張不安。",
+        related: ["關係滿意度低", "具強烈控制慾與焦慮信念，男性得分較多"]
+      },
+      {
+        attitude: "遊戲愛",
+        items: [5, 9, 12, 15, 26, 33],
+        description: "視愛情為遊戲，兩方面對象多變，會因失去新鮮感而對伴侶生厭，害怕長期承諾。他們對愛情不夠認真，沒有焦慮和痛苦。不斷轉換伴侶，分手事件對其傷害不大。",
+        related: ["關係滿意度低", "未成熟或無戀愛經驗者高分", "有多次戀愛經驗者高分"]
+      }
+    ];
+
+    const optionDescriptions = {
+      "1": "完全不符合",
+      "2": "不符合",
+      "3": "沒意見",
+      "4": "符合",
+      "5": "完全符合"
+    };
+
+    form.querySelectorAll(".options label").forEach((label) => {
+      const input = label.querySelector('input[type="radio"]');
+      if (input) {
+        const text = optionDescriptions[input.value];
+        if (text && !label.textContent.includes(text)) {
+          label.appendChild(document.createTextNode(` ${text}`));
+        }
+      }
+    });
+
+    let currentIndex = 0;
+    let reviewMode = false;
+
+    function updateQuestionVisibility() {
+      if (reviewMode) {
+        questions.forEach((question) => {
+          question.classList.add("active");
+          question.setAttribute("aria-hidden", "false");
+        });
+        prevButton.hidden = true;
+        prevButton.disabled = true;
+        prevButton.setAttribute("aria-hidden", "true");
+        submitButton.style.display = "none";
+        returnButton.hidden = false;
+        progress.textContent = `共 ${questions.length} 題`;
+      } else {
+        questions.forEach((question, index) => {
+          const isActive = index === currentIndex;
+          question.classList.toggle("active", isActive);
+          question.setAttribute("aria-hidden", String(!isActive));
+        });
+        prevButton.hidden = false;
+        prevButton.removeAttribute("aria-hidden");
+        prevButton.disabled = currentIndex === 0;
+        submitButton.style.display = "";
+        returnButton.hidden = true;
+        progress.textContent = `第 ${currentIndex + 1} 題 / ${questions.length}`;
+      }
+
+      updateSelectedAnswerVisibility();
+    }
+
+    function setReviewMode(enabled) {
+      reviewMode = enabled;
+      updateQuestionVisibility();
+    }
+
+    function updateSelectedAnswerVisibility() {
+      questions.forEach((question) => {
+        const summary = question.querySelector(".selected-answer");
+        if (summary) {
+          summary.hidden = !reviewMode;
+        }
+      });
+    }
+
+    function focusCurrentQuestion() {
+      const currentQuestion = questions[currentIndex];
+      const selected = currentQuestion.querySelector('input[type="radio"]:checked');
+      const target = selected || currentQuestion.querySelector('input[type="radio"]');
+      if (target) {
+        target.focus();
+      }
+    }
+
+    startButton.addEventListener("click", () => {
+      currentIndex = 0;
+      setReviewMode(false);
+      setActivePage(quizPage);
+      updateQuestionVisibility();
+      focusCurrentQuestion();
+    });
+
+    viewQuestionsButton.addEventListener("click", () => {
+      currentIndex = 0;
+      setReviewMode(true);
+      setActivePage(quizPage);
+      window.scrollTo({top: 0, behavior: "smooth"});
+    });
+
+    returnButton.addEventListener("click", () => {
+      setReviewMode(false);
+      setActivePage(resultPage);
+      window.scrollTo({top: 0, behavior: "smooth"});
+    });
+
+    prevButton.addEventListener("click", () => {
+      if (currentIndex > 0) {
+        currentIndex -= 1;
+        updateQuestionVisibility();
+        focusCurrentQuestion();
+      }
+    });
+
+    questions.forEach((question, index) => {
+      question.querySelectorAll('input[type="radio"]').forEach((radio) => {
+        radio.addEventListener("change", () => {
+          if (index < questions.length - 1) {
+            currentIndex = index + 1;
+            updateQuestionVisibility();
+            focusCurrentQuestion();
+          } else {
+            submitButton.focus();
+          }
+        });
+      });
+    });
+
+    updateQuestionVisibility();
+
+    form.addEventListener("submit", function(event) {
+      event.preventDefault();
+      const formData = new FormData(event.target);
+      const scores = {};
+      scores["熱情愛"] = 0;
+      scores["友誼愛"] = 0;
+      scores["現實愛"] = 0;
+      scores["奉獻愛"] = 0;
+      scores["瘋狂愛"] = 0;
+      scores["遊戲愛"] = 0;
+
+      scores["熱情愛"] += parseInt(formData.get("q10"));
+      scores["熱情愛"] += parseInt(formData.get("q13"));
+      scores["熱情愛"] += parseInt(formData.get("q20"));
+      scores["熱情愛"] += parseInt(formData.get("q24"));
+      scores["熱情愛"] += parseInt(formData.get("q29"));
+      scores["熱情愛"] += parseInt(formData.get("q32"));
+      scores["友誼愛"] += parseInt(formData.get("q1"));
+      scores["友誼愛"] += parseInt(formData.get("q11"));
+      scores["友誼愛"] += parseInt(formData.get("q17"));
+      scores["友誼愛"] += parseInt(formData.get("q19"));
+      scores["友誼愛"] += parseInt(formData.get("q25"));
+      scores["友誼愛"] += parseInt(formData.get("q36"));
+      scores["現實愛"] += parseInt(formData.get("q2"));
+      scores["現實愛"] += parseInt(formData.get("q6"));
+      scores["現實愛"] += parseInt(formData.get("q16"));
+      scores["現實愛"] += parseInt(formData.get("q22"));
+      scores["現實愛"] += parseInt(formData.get("q31"));
+      scores["現實愛"] += parseInt(formData.get("q34"));
+      scores["奉獻愛"] += parseInt(formData.get("q3"));
+      scores["奉獻愛"] += parseInt(formData.get("q7"));
+      scores["奉獻愛"] += parseInt(formData.get("q23"));
+      scores["奉獻愛"] += parseInt(formData.get("q27"));
+      scores["奉獻愛"] += parseInt(formData.get("q28"));
+      scores["奉獻愛"] += parseInt(formData.get("q35"));
+      scores["瘋狂愛"] += parseInt(formData.get("q4"));
+      scores["瘋狂愛"] += parseInt(formData.get("q8"));
+      scores["瘋狂愛"] += parseInt(formData.get("q14"));
+      scores["瘋狂愛"] += parseInt(formData.get("q18"));
+      scores["瘋狂愛"] += parseInt(formData.get("q21"));
+      scores["瘋狂愛"] += parseInt(formData.get("q30"));
+      scores["遊戲愛"] += parseInt(formData.get("q5"));
+      scores["遊戲愛"] += parseInt(formData.get("q9"));
+      scores["遊戲愛"] += parseInt(formData.get("q12"));
+      scores["遊戲愛"] += parseInt(formData.get("q15"));
+      scores["遊戲愛"] += parseInt(formData.get("q26"));
+      scores["遊戲愛"] += parseInt(formData.get("q33"));
+
+      questions.forEach((question, index) => {
+        const name = `q${index + 1}`;
+        const value = formData.get(name);
+        if (value) {
+          const description = optionDescriptions[value] ? ` ${optionDescriptions[value]}` : "";
+          let summary = question.querySelector(".selected-answer");
+          if (!summary) {
+            summary = document.createElement("p");
+            summary.className = "selected-answer";
+            question.appendChild(summary);
+          }
+          summary.textContent = `您的作答：${value}${description}`;
+          summary.hidden = !reviewMode;
+        }
+      });
+
+      let resultHTML = "<h2>結果</h2><p>您的各項得分如下，點擊下方的「查看題目與作答」按鈕可回顧每題選擇。</p><table class='result-table'><tr><th>愛情態度</th><th>分數</th></tr>";
+      const labels = [];
+      const values = [];
+      for (const [key, value] of Object.entries(scores)) {
+        resultHTML += `<tr><td>${key}</td><td>${value}</td></tr>`;
+        labels.push(key);
+        values.push(value);
+      }
+      resultHTML += "</table>";
+      resultsContainer.innerHTML = resultHTML;
+
+      Plotly.newPlot(chartContainer, [{
+        x: labels,
+        y: values,
+        type: "bar",
+        marker: {color: "#ff4081"}
+      }], {
+        title: "愛情態度分數圖表",
+        paper_bgcolor: "#121212",
+        plot_bgcolor: "#121212",
+        font: {color: "#ffffff", family: "wqy-zenhei"}
+      });
+
+      captionSection.innerHTML = captionsData.map((item) => {
+        const related = item.related.map((text) => `<li>${text}</li>`).join("");
+        const score = Number(scores[item.attitude] || 0);
+        return `
+          <article class="caption-card">
+            <h3>${item.attitude}</h3>
+            <p><strong>題號：</strong>${item.items.join("、")}</p>
+            <p><strong>您的分數：</strong>${score}</p>
+            <p>${item.description}</p>
+            <ul>${related}</ul>
+          </article>
+        `;
+      }).join("");
+
+      form.querySelectorAll('input[type="radio"]').forEach((radio) => {
+        radio.disabled = true;
+      });
+      submitButton.disabled = true;
+
+      // 儲存 JSON 結果
+      const resultData = {timestamp: new Date().toISOString(), scores: scores};
+      const blob = new Blob([JSON.stringify(resultData, null, 2)], {type: "application/json"});
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "love_attitude_result.json";
+      link.click();
+      URL.revokeObjectURL(url);
+
+      setReviewMode(false);
+      setActivePage(resultPage);
+      window.scrollTo({top: 0, behavior: "smooth"});
+    });
+  </script>
+</body>
+</html>
