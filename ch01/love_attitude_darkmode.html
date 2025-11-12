@@ -780,16 +780,6 @@
       });
       submitButton.disabled = true;
 
-      // 儲存 JSON 結果
-      const resultData = {timestamp: new Date().toISOString(), scores: scores};
-      const blob = new Blob([JSON.stringify(resultData, null, 2)], {type: "application/json"});
-      const url = URL.createObjectURL(blob);
-      const link = document.createElement("a");
-      link.href = url;
-      link.download = "love_attitude_result.json";
-      link.click();
-      URL.revokeObjectURL(url);
-
       setReviewMode(false);
       setActivePage(resultPage);
       window.scrollTo({top: 0, behavior: "smooth"});
